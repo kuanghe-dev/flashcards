@@ -120,9 +120,14 @@ async function startSession() {
   startBtn.disabled = false;
 }
 
-// Build file list from manifest
-fetch('assets/manifest.json')
-  .then(r => r.json())
+// Discover .txt files by parsing the assets/ directory listing
+fetch('assets/')
+  .then(r => r.text())
+  .then(html => {
+    const links = [...html.matchAll(/href="([^"]+\.txt)"/g)].map(m => m[1]);
+    // strip any path prefix, keep just the filename
+    return [...new Set(links.map(l => l.replace(/^.*\//, '')))].sort();
+  })
   .then(files => {
     files.forEach(name => {
       const item = document.createElement('div');
