@@ -16,9 +16,15 @@ function shuffle(arr) {
 }
 
 let queue = [];
+let history = [];
 let allChars = [];
 let shown = 0;
 let running = false;
+
+function showChar(ch) {
+  charEl.textContent = ch;
+  progressEl.textContent = `${shown} / ${allChars.length}`;
+}
 
 function nextChar() {
   if (queue.length === 0) {
@@ -27,17 +33,33 @@ function nextChar() {
   }
   const ch = queue.pop();
   shown++;
-  charEl.textContent = ch;
-  progressEl.textContent = `${shown} / ${allChars.length}`;
+  history.push(ch);
+  showChar(ch);
 }
 
-function advance() {
+function prevChar() {
+  if (history.length <= 1) return; // nothing to go back to
+  // put current card back on queue
+  queue.push(history.pop());
+  shown--;
+  showChar(history[history.length - 1]);
+}
+
+function transition(fn) {
   if (!running) return;
   charEl.classList.add('fade');
   setTimeout(() => {
-    nextChar();
+    fn();
     charEl.classList.remove('fade');
   }, 150);
+}
+
+function advance() {
+  transition(nextChar);
+}
+
+function goBack() {
+  transition(prevChar);
 }
 
 function checkedFiles() {
@@ -89,10 +111,11 @@ async function startSession() {
   }
 
   queue = shuffle([...allChars]);
+  history = [];
   shown = 0;
   running = true;
   messageEl.textContent = '';
-  hintEl.textContent = 'Click to advance';
+  hintEl.textContent = 'Click, Space, or PageDown to advance · PageUp to go back';
   nextChar();
   startBtn.disabled = false;
 }
@@ -131,3 +154,8 @@ fetch('assets/manifest.json')
 
 startBtn.addEventListener('click', startSession);
 mainEl.addEventListener('click', advance);
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); advance(); }
+  if (e.key === 'PageUp')   { e.preventDefault(); goBack(); }
+});
