@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chinese Flashcards</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: #1a1a2e;
+      color: #eee;
+      font-family: sans-serif;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    #character {
+      font-size: 40vmin;
+      line-height: 1;
+      transition: opacity 0.15s ease;
+    }
+
+    #character.fade {
+      opacity: 0;
+    }
+
+    #progress {
+      position: fixed;
+      bottom: 1.5rem;
+      font-size: 1rem;
+      opacity: 0.4;
+    }
+
+    #message {
+      font-size: 2rem;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="character"></div>
+  <div id="message"></div>
+  <div id="progress"></div>
+
+  <script src="flashcards.js" defer></script>
+</body>
+
+</html>
