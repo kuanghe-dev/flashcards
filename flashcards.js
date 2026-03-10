@@ -1,6 +1,10 @@
 const charEl = document.getElementById('character');
 const progressEl = document.getElementById('progress');
 const messageEl = document.getElementById('message');
+const hintEl = document.getElementById('hint');
+const fileListEl = document.getElementById('file-list');
+const startBtn = document.getElementById('start-btn');
+const mainEl = document.getElementById('main');
 
 // Fisher-Yates shuffle
 function shuffle(arr) {
@@ -14,6 +18,7 @@ function shuffle(arr) {
 let queue = [];
 let allChars = [];
 let shown = 0;
+let running = false;
 
 function nextChar() {
   if (queue.length === 0) {
@@ -27,6 +32,7 @@ function nextChar() {
 }
 
 function advance() {
+  if (!running) return;
   charEl.classList.add('fade');
   setTimeout(() => {
     nextChar();
@@ -34,24 +40,94 @@ function advance() {
   }, 150);
 }
 
-fetch('assets/grade1b.txt')
-  .then(r => r.text())
-  .then(text => {
-    // Extract CJK Unified Ideographs (common Chinese characters)
-    const chars = [...text.matchAll(/[\u4e00-\u9fff\u3400-\u4dbf]/g)].map(m => m[0]);
-    const unique = [...new Set(chars)];
+function checkedFiles() {
+  return [...fileListEl.querySelectorAll('input[type="checkbox"]:checked')]
+    .map(cb => cb.value);
+}
 
-    if (unique.length === 0) {
-      messageEl.textContent = 'No Chinese characters found.';
-      return;
-    }
+function updateStartBtn() {
+  startBtn.disabled = checkedFiles().length === 0;
+}
 
-    allChars = unique;
-    queue = shuffle([...allChars]);
-    nextChar();
+async function loadFiles(filenames) {
+  const texts = await Promise.all(
+    filenames.map(name =>
+      fetch(`assets/${name}`).then(r => {
+        if (!r.ok) throw new Error(`Failed to load ${name}`);
+        return r.text();
+      })
+    )
+  );
+  const combined = texts.join('');
+  const chars = [...combined.matchAll(/[\u4e00-\u9fff\u3400-\u4dbf]/g)].map(m => m[0]);
+  return [...new Set(chars)];
+}
 
-    document.body.addEventListener('click', advance);
+async function startSession() {
+  const files = checkedFiles();
+  if (files.length === 0) return;
+
+  startBtn.disabled = true;
+  messageEl.textContent = 'Loading…';
+  charEl.textContent = '';
+  progressEl.textContent = '';
+  hintEl.textContent = '';
+  running = false;
+
+  try {
+    allChars = await loadFiles(files);
+  } catch (e) {
+    messageEl.textContent = e.message;
+    startBtn.disabled = false;
+    return;
+  }
+
+  if (allChars.length === 0) {
+    messageEl.textContent = 'No Chinese characters found in selected files.';
+    startBtn.disabled = false;
+    return;
+  }
+
+  queue = shuffle([...allChars]);
+  shown = 0;
+  running = true;
+  messageEl.textContent = '';
+  hintEl.textContent = 'Click to advance';
+  nextChar();
+  startBtn.disabled = false;
+}
+
+// Build file list from manifest
+fetch('assets/manifest.json')
+  .then(r => r.json())
+  .then(files => {
+    files.forEach(name => {
+      const item = document.createElement('div');
+      item.className = 'file-item';
+
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.id = `file-${name}`;
+      cb.value = name;
+      cb.addEventListener('change', updateStartBtn);
+
+      const label = document.createElement('label');
+      label.htmlFor = `file-${name}`;
+      label.textContent = name;
+
+      item.appendChild(cb);
+      item.appendChild(label);
+      // clicking the row toggles the checkbox
+      item.addEventListener('click', e => {
+        if (e.target !== cb) cb.click();
+      });
+
+      fileListEl.appendChild(item);
+    });
   })
   .catch(() => {
-    messageEl.textContent = 'Failed to load grade1b.txt';
+    fileListEl.textContent = 'Failed to load file list.';
   });
+
+startBtn.addEventListener('click', startSession);
+mainEl.addEventListener('click', advance);
