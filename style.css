@@ -141,7 +141,7 @@ body.sidebar-collapsed #sidebar {
 }
 
 #character {
-  font-size: 40vmin;
+  font-size: 45vmin;
   line-height: 1;
   transition: opacity 0.15s ease;
 }
