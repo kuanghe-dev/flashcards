@@ -120,14 +120,9 @@ async function startSession() {
   startBtn.disabled = false;
 }
 
-// Discover .txt files by parsing the assets/ directory listing
-fetch('assets/')
-  .then(r => r.text())
-  .then(html => {
-    const links = [...html.matchAll(/href="([^"]+\.txt)"/g)].map(m => m[1]);
-    // strip any path prefix, keep just the filename
-    return [...new Set(links.map(l => l.replace(/^.*\//, '')))].sort();
-  })
+// Discover .txt files from static manifest (required for GitHub Pages)
+fetch('assets/index.json')
+  .then(r => r.json())
   .then(files => {
     files.forEach(name => {
       const item = document.createElement('div');
