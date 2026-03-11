@@ -27,10 +27,7 @@ function showChar(ch) {
 }
 
 function nextChar() {
-  if (queue.length === 0) {
-    queue = shuffle([...allChars]);
-    shown = 0;
-  }
+  if (queue.length === 0) return;
   const ch = queue.pop();
   shown++;
   history.push(ch);
@@ -55,10 +52,12 @@ function transition(fn) {
 }
 
 function advance() {
+  if (queue.length === 0) return;
   transition(nextChar);
 }
 
 function goBack() {
+  if (history.length <= 1) return;
   transition(prevChar);
 }
 
