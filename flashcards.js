@@ -150,7 +150,7 @@ fetch('assets/index.json')
       item.appendChild(label);
       // clicking the row toggles the checkbox
       item.addEventListener('click', e => {
-        if (e.target !== cb) cb.click();
+        if (e.target !== cb && e.target !== label) cb.click();
       });
 
       fileListEl.appendChild(item);
