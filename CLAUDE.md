@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Git Commits
+
+Do not include `Co-Authored-By` trailers in commit messages.
+
 ## Project Overview
 
 `flashcards` is a browser-based app for learning Chinese. It reads Chinese characters from `.txt` files in the `assets/` subdirectory and displays them one at a time in flashcard style.
