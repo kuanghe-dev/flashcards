@@ -141,7 +141,7 @@ fetch('assets/')
 
       const label = document.createElement('label');
       label.htmlFor = `file-${name}`;
-      label.textContent = name.replace(/\.txt$/, '');
+      label.textContent = decodeURIComponent(name).replace(/\.txt$/, '');
 
       item.appendChild(cb);
       item.appendChild(label);
