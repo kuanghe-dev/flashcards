@@ -49,3 +49,7 @@ Then open http://localhost:8000.
 ## Tech Stack
 
 Pure HTML/CSS/JS — no build step, no framework, no dependencies.
+
+## Credits
+
+- App icon by [Icon Desai - Flaticon](https://www.flaticon.com/free-icons/chinese-language)
