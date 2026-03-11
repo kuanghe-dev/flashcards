@@ -42,8 +42,10 @@ Do not include `Co-Authored-By` trailers in commit messages.
 Asset files in `assets/` contain Chinese characters encoded in UTF-8:
 
 ```
-天地人你我他
-一二三四五上下
+# Test Character Set
+
+天地人 你我他
+一二三四五 上下
 ```
 
-Only CJK Unified Ideographs (`\u4e00–\u9fff`, `\u3400–\u4dbf`) are extracted; all other content is ignored.
+Comment lines starting in `#` will be ignored. Only CJK Unified Ideographs (`\u4e00–\u9fff`, `\u3400–\u4dbf`) are extracted; all other content is ignored.
