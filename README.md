@@ -24,12 +24,14 @@ A browser-based flashcard app for learning Chinese characters.
 
 ## Adding Character Sets
 
-Add a UTF-8 `.txt` file to the `assets/` directory containing Chinese characters, then update `assets/index.json` to include the filename. Non-CJK characters in the file are ignored — you can freely include notes, pinyin, or whitespace.
+Add a UTF-8 `.txt` file to the `assets/` directory containing Chinese characters, then update `assets/index.json` to include the filename. Comment lines starting in `#` will be ignored. Non-CJK characters in the file are also ignored — you can freely include notes, pinyin, or whitespace.
 
 Example file content:
 ```
-天地人你我他
-一二三四五上下
+# Test Character Set
+
+天地人 你我他
+一二三四五 上下
 ```
 
 Only CJK Unified Ideographs (`\u4e00–\u9fff`, `\u3400–\u4dbf`) are extracted.
