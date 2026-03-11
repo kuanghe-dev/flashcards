@@ -85,7 +85,7 @@ async function loadFiles(filenames) {
       })
     )
   );
-  const combined = texts.join('');
+  const combined = texts.map(t => t.split('\n').filter(l => !l.startsWith('#')).join('\n')).join('');
   const chars = [...combined.matchAll(/[\u4e00-\u9fff\u3400-\u4dbf]/g)].map(m => m[0]);
   return [...new Set(chars)];
 }
