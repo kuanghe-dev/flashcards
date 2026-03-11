@@ -164,3 +164,8 @@ document.addEventListener('keydown', e => {
   if (e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); advance(); }
   if (e.key === 'PageUp')   { e.preventDefault(); goBack(); }
 });
+
+mainEl.addEventListener('wheel', e => {
+  e.preventDefault();
+  if (e.deltaY > 0) advance(); else goBack();
+}, { passive: false });
