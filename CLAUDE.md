@@ -4,12 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-`flash-cards` is a browser-based app for learning Chinese. It reads Chinese characters from `.txt` files in the `assets/` subdirectory and displays them one at a time in flash card style.
+`flashcards` is a browser-based app for learning Chinese. It reads Chinese characters from `.txt` files in the `assets/` subdirectory and displays them one at a time in flashcard style.
 
 ## Repository Structure
 
-- `index.html` — App shell; sidebar + main flash card area
-- `style.css` — All styles (dark theme, sidebar, flash card layout)
+- `index.html` — App shell; sidebar + main flashcard area
+- `style.css` — All styles (dark theme, sidebar, flashcard layout)
 - `flashcards.js` — All app logic
 - `assets/` — UTF-8 text files containing Chinese characters; filenames are in Chinese
 
@@ -26,7 +26,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 1. On load, the sidebar lists all `.txt` files found in `assets/` (filenames URL-decoded, `.txt` stripped)
 2. User selects one or more files via checkboxes, then clicks **Start**
 3. All selected files are fetched, Chinese characters are extracted and deduplicated, then shuffled
-4. Flash cards are shown one at a time in the main area
+4. Flashcards are shown one at a time in the main area
 
 ## Navigation Controls
 
