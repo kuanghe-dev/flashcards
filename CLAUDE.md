@@ -19,7 +19,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Must be served via an HTTP server (not `file://`) because it uses `fetch()` to:
   - Load the `assets/` directory listing to discover `.txt` files dynamically
   - Load the content of selected files
-- No manifest file — file discovery relies on parsing directory listing HTML for `href` attributes ending in `.txt`
+- File discovery uses a manifest file `assets/index.json` (fetched on load)
 
 ## UI Flow
 
@@ -30,8 +30,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Navigation Controls
 
-- **Click** / **Space** / **PageDown** — next card
-- **PageUp** — previous card (history is tracked within a session)
+- **Click** / **Space** / **PageDown** / **Scroll down** — next card
+- **PageUp** / **Scroll up** — previous card (history is tracked within a session)
 
 ## Data File Format
 
