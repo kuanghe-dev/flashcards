@@ -30,8 +30,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Navigation Controls
 
-- **Click** / **Arrow Down** / **Arrow Right** / **Scroll down** — next card
-- **Arrow Up** / **Arrow Left** / **Scroll up** — previous card (history is tracked within a session)
+- **Click** / **Arrow Down** / **Arrow Right** / **Scroll down** / **Swipe left** — next card
+- **Arrow Up** / **Arrow Left** / **Scroll up** / **Swipe right** — previous card (history is tracked within a session)
 
 ## Data File Format
 

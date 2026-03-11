@@ -120,7 +120,7 @@ async function startSession() {
   shown = 0;
   running = true;
   messageEl.textContent = '';
-  hintEl.textContent = 'Click or ↓/→ to advance · ↑/← to go back';
+  hintEl.textContent = 'Click or ↓/→ to advance · ↑/← to go back · swipe ←/→ on touch';
   nextChar();
   startBtn.disabled = false;
 }
@@ -174,3 +174,15 @@ mainEl.addEventListener('wheel', e => {
   e.preventDefault();
   if (e.deltaY > 0) advance(); else goBack();
 }, { passive: false });
+
+let touchStartX = null;
+mainEl.addEventListener('touchstart', e => {
+  touchStartX = e.touches[0].clientX;
+}, { passive: true });
+mainEl.addEventListener('touchend', e => {
+  if (touchStartX === null) return;
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  touchStartX = null;
+  if (Math.abs(dx) < 40) return; // too short, treat as tap
+  if (dx > 0) goBack(); else advance();
+}, { passive: true });
