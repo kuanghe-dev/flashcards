@@ -120,7 +120,7 @@ async function startSession() {
   shown = 0;
   running = true;
   messageEl.textContent = '';
-  hintEl.textContent = 'Click, Space, or PageDown to advance · PageUp to go back';
+  hintEl.textContent = 'Click or ↓/→ to advance · ↑/← to go back';
   nextChar();
   startBtn.disabled = false;
 }
@@ -166,8 +166,8 @@ startBtn.addEventListener('click', startSession);
 mainEl.addEventListener('click', advance);
 
 document.addEventListener('keydown', e => {
-  if (e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); advance(); }
-  if (e.key === 'PageUp')   { e.preventDefault(); goBack(); }
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); advance(); }
+  if (e.key === 'ArrowUp'   || e.key === 'ArrowLeft')  { e.preventDefault(); goBack(); }
 });
 
 mainEl.addEventListener('wheel', e => {
