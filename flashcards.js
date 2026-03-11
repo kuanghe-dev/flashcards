@@ -5,6 +5,12 @@ const hintEl = document.getElementById('hint');
 const fileListEl = document.getElementById('file-list');
 const startBtn = document.getElementById('start-btn');
 const mainEl = document.getElementById('main');
+const sidebarToggle = document.getElementById('sidebar-toggle');
+
+sidebarToggle.addEventListener('click', () => {
+  const collapsed = document.body.classList.toggle('sidebar-collapsed');
+  sidebarToggle.innerHTML = collapsed ? '&#8250;' : '&#8249;';
+});
 
 // Fisher-Yates shuffle
 function shuffle(arr) {
