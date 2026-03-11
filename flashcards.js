@@ -123,7 +123,9 @@ async function startSession() {
 // Discover .txt files from static manifest (required for GitHub Pages)
 fetch('assets/index.json')
   .then(r => r.json())
-  .then(files => {
+  .then(manifest => {
+    const files = manifest.files;
+    const defaults = new Set(manifest.default || []);
     files.forEach(name => {
       const item = document.createElement('div');
       item.className = 'file-item';
@@ -132,6 +134,7 @@ fetch('assets/index.json')
       cb.type = 'checkbox';
       cb.id = `file-${name}`;
       cb.value = name;
+      cb.checked = defaults.has(name);
       cb.addEventListener('change', updateStartBtn);
 
       const label = document.createElement('label');
@@ -147,6 +150,8 @@ fetch('assets/index.json')
 
       fileListEl.appendChild(item);
     });
+    updateStartBtn();
+    if (defaults.size > 0) startSession();
   })
   .catch(() => {
     fileListEl.textContent = 'Failed to load file list.';
