@@ -38,7 +38,7 @@ body {
 }
 
 body.sidebar-collapsed #sidebar-toggle {
-  left: 0;
+  left: 10px;
 }
 
 /* ── Sidebar ── */
