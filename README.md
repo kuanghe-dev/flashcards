@@ -1,0 +1,49 @@
+# Flashcards
+
+A browser-based flashcard app for learning Chinese characters.
+
+**Live app: https://kuanghe-dev.github.io/flashcards/**
+
+## Features
+
+- Select one or more character sets from the sidebar, then click **Start**
+- Characters are deduplicated and shuffled across all selected sets
+- Clean dark theme, works on desktop and mobile (iOS/Android)
+
+## Navigation
+
+| Action | Result |
+|---|---|
+| Click / Tap | Next card |
+| Arrow Down / Right | Next card |
+| Scroll down | Next card |
+| Swipe left | Next card |
+| Arrow Up / Left | Previous card |
+| Scroll up | Previous card |
+| Swipe right | Previous card |
+
+## Adding Character Sets
+
+Add a UTF-8 `.txt` file to the `assets/` directory containing Chinese characters, then update `assets/index.json` to include the filename. Non-CJK characters in the file are ignored — you can freely include notes, pinyin, or whitespace.
+
+Example file content:
+```
+天地人你我他
+一二三四五上下
+```
+
+Only CJK Unified Ideographs (`\u4e00–\u9fff`, `\u3400–\u4dbf`) are extracted.
+
+## Running Locally
+
+The app must be served over HTTP (not opened as a `file://` URL) because it uses `fetch()` to load assets. Any static file server works:
+
+```bash
+python3 -m http.server
+```
+
+Then open http://localhost:8000.
+
+## Tech Stack
+
+Pure HTML/CSS/JS — no build step, no framework, no dependencies.
