@@ -1,6 +1,6 @@
 # Flashcards
 
-A browser-based flashcard app for learning Chinese characters.
+A web application that displays Chinese characters as flashcards.
 
 **Live app: https://kuanghe-dev.github.io/flashcards/**
 
