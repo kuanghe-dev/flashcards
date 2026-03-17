@@ -107,6 +107,34 @@ body.sidebar-collapsed #sidebar {
   text-overflow: ellipsis;
 }
 
+#custom-input {
+  background: #0f3460;
+  color: #eee;
+  border: 1px solid #1a3a6e;
+  border-radius: 6px;
+  padding: 0.5rem 0.6rem;
+  font-size: 1rem;
+  resize: vertical;
+  width: 100%;
+  font-family: sans-serif;
+  line-height: 1.4;
+  display: none;
+}
+
+#custom-input.active {
+  display: block;
+}
+
+#custom-input::placeholder {
+  color: #a0aec0;
+  opacity: 0.6;
+}
+
+#custom-input:focus {
+  outline: none;
+  border-color: #e94560;
+}
+
 #start-btn {
   margin-top: auto;
   padding: 0.65rem 1rem;

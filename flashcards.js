@@ -6,6 +6,7 @@ const fileListEl = document.getElementById('file-list');
 const startBtn = document.getElementById('start-btn');
 const mainEl = document.getElementById('main');
 const sidebarToggle = document.getElementById('sidebar-toggle');
+const customInputEl = document.getElementById('custom-input');
 
 sidebarToggle.addEventListener('click', () => {
   const collapsed = document.body.classList.toggle('sidebar-collapsed');
@@ -69,11 +70,44 @@ function goBack() {
 
 function checkedFiles() {
   return [...fileListEl.querySelectorAll('input[type="checkbox"]:checked')]
+    .filter(cb => cb.id !== 'custom-input-cb')
     .map(cb => cb.value);
 }
 
+function customInputChars() {
+  const cb = document.getElementById('custom-input-cb');
+  if (!cb || !cb.checked) return [];
+  return [...customInputEl.value.matchAll(/[\u4e00-\u9fff\u3400-\u4dbf]/g)].map(m => m[0]);
+}
+
+function appendCustomInputItem() {
+  const item = document.createElement('div');
+  item.className = 'file-item';
+
+  const cb = document.createElement('input');
+  cb.type = 'checkbox';
+  cb.id = 'custom-input-cb';
+
+  const label = document.createElement('label');
+  label.htmlFor = 'custom-input-cb';
+  label.textContent = 'Custom Input';
+
+  item.appendChild(cb);
+  item.appendChild(label);
+  item.addEventListener('click', e => {
+    if (e.target !== cb && e.target !== label) cb.click();
+  });
+  cb.addEventListener('change', () => {
+    customInputEl.classList.toggle('active', cb.checked);
+    updateStartBtn();
+  });
+
+  fileListEl.appendChild(item);
+  fileListEl.appendChild(customInputEl);
+}
+
 function updateStartBtn() {
-  startBtn.disabled = checkedFiles().length === 0;
+  startBtn.disabled = checkedFiles().length === 0 && customInputChars().length === 0;
 }
 
 async function loadFiles(filenames) {
@@ -92,7 +126,8 @@ async function loadFiles(filenames) {
 
 async function startSession() {
   const files = checkedFiles();
-  if (files.length === 0) return;
+  const custom = customInputChars();
+  if (files.length === 0 && custom.length === 0) return;
 
   startBtn.disabled = true;
   messageEl.textContent = 'Loading…';
@@ -101,16 +136,18 @@ async function startSession() {
   hintEl.textContent = '';
   running = false;
 
+  let fileChars = [];
   try {
-    allChars = await loadFiles(files);
+    if (files.length > 0) fileChars = await loadFiles(files);
   } catch (e) {
     messageEl.textContent = e.message;
     startBtn.disabled = false;
     return;
   }
+  allChars = [...new Set([...fileChars, ...custom])];
 
   if (allChars.length === 0) {
-    messageEl.textContent = 'No Chinese characters found in selected files.';
+    messageEl.textContent = 'No Chinese characters found.';
     startBtn.disabled = false;
     return;
   }
@@ -155,12 +192,20 @@ fetch('assets/index.json')
 
       fileListEl.appendChild(item);
     });
+    appendCustomInputItem();
     updateStartBtn();
     if (defaults.size > 0) startSession();
   })
   .catch(() => {
     fileListEl.textContent = 'Failed to load file list.';
+    appendCustomInputItem();
+    updateStartBtn();
   });
+
+customInputEl.addEventListener('input', updateStartBtn);
+customInputEl.addEventListener('compositionend', updateStartBtn);
+customInputEl.addEventListener('paste', () => setTimeout(updateStartBtn, 0));
+customInputEl.addEventListener('keydown', e => e.stopPropagation());
 
 startBtn.addEventListener('click', startSession);
 mainEl.addEventListener('click', advance);
