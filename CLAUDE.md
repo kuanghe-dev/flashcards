@@ -27,10 +27,11 @@ Do not include `Co-Authored-By` trailers in commit messages.
 
 ## UI Flow
 
-1. On load, the sidebar lists all `.txt` files found in `assets/` (filenames URL-decoded, `.txt` stripped)
-2. User selects one or more files via checkboxes, then clicks **Start**
-3. All selected files are fetched, Chinese characters are extracted and deduplicated, then shuffled
-4. Flashcards are shown one at a time in the main area
+1. On load, the sidebar lists all `.txt` files found in `assets/` (filenames URL-decoded, `.txt` stripped), followed by a **Custom Input** checkbox
+2. User selects one or more files and/or checks **Custom Input**, then clicks **Start**
+3. If **Custom Input** is checked, a textarea appears below it where the user can paste or type Chinese characters directly
+4. All selected files are fetched; characters from files and custom input are combined, deduplicated, then shuffled
+5. Flashcards are shown one at a time in the main area
 
 ## Navigation Controls
 
