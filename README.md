@@ -7,7 +7,8 @@ A web application that displays Chinese characters as flashcards.
 ## Features
 
 - Select one or more character sets from the sidebar, then click **Start**
-- Characters are deduplicated and shuffled across all selected sets
+- Check **Custom Input** to paste or type your own Chinese characters directly
+- Characters are deduplicated and shuffled across all selected sets and custom input
 - Clean dark theme, works on desktop and mobile (iOS/Android)
 
 ## Navigation
