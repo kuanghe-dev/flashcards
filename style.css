@@ -169,9 +169,15 @@ body.sidebar-collapsed #sidebar {
 }
 
 #character {
-  font-size: 45vmin;
+  font-size: 40vmin;
   line-height: 1;
   transition: opacity 0.15s ease;
+}
+
+@media (pointer: coarse) {
+  #character {
+    font-size: 50vmin;
+  }
 }
 
 #character.fade {
