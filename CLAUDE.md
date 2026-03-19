@@ -31,7 +31,8 @@ Do not include `Co-Authored-By` trailers in commit messages.
 2. User selects one or more files and/or checks **Custom Input**, then clicks **Start**
 3. If **Custom Input** is checked, a textarea appears below it where the user can paste or type Chinese characters directly
 4. All selected files are fetched; characters from files and custom input are combined, deduplicated, then shuffled
-5. Flashcards are shown one at a time in the main area
+5. On touch-capable devices (phones, tablets), the sidebar is automatically collapsed when the session starts
+6. Flashcards are shown one at a time in the main area
 
 ## Navigation Controls
 

@@ -159,6 +159,10 @@ async function startSession() {
   messageEl.textContent = '';
   hintEl.textContent = 'Click or ↓/→ to advance · ↑/← to go back · swipe ←/→ on touch';
   nextChar();
+  if (navigator.maxTouchPoints > 0) {
+    document.body.classList.add('sidebar-collapsed');
+    sidebarToggle.innerHTML = '&#8250;';
+  }
   startBtn.disabled = false;
 }
 
