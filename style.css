@@ -171,6 +171,7 @@ body.sidebar-collapsed #sidebar {
 #character {
   font-size: 40vmin;
   line-height: 1;
+  font-family: "KaiTi", "STKaiti", "AR PL UKai CN", serif;
   transition: opacity 0.15s ease;
 }
 
