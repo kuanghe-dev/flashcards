@@ -4,6 +4,8 @@ A web application that displays Chinese characters as flashcards.
 
 **Live app: https://kuanghe-dev.github.io/flashcards/**
 
+<img src="docs/screenshot.png" alt="screenshot" width="600">
+
 ## Features
 
 - Select one or more character sets from the sidebar, then click **Start**
