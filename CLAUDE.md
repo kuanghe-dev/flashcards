@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository. For user-facing documentation, see [README.md](README.md).
 
 ## Git Commits
 
@@ -36,18 +36,8 @@ Do not include `Co-Authored-By` trailers in commit messages.
 
 ## Navigation Controls
 
-- **Click** / **Arrow Down** / **Arrow Right** / **Scroll down** / **Swipe left** — next card
-- **Arrow Up** / **Arrow Left** / **Scroll up** / **Swipe right** — previous card (history is tracked within a session)
+See [README.md § Navigation](README.md#navigation) — next/previous card via click, arrow keys, scroll, and swipe. History is tracked within a session.
 
 ## Data File Format
 
-Asset files in `assets/` contain Chinese characters encoded in UTF-8:
-
-```
-# Test Character Set
-
-天地人 你我他
-一二三四五 上下
-```
-
-Comment lines starting in `#` will be ignored. Only CJK Unified Ideographs (`\u4e00–\u9fff`, `\u3400–\u4dbf`) are extracted; all other content is ignored.
+See [README.md § Adding Character Sets](README.md#adding-character-sets) — only CJK Unified Ideographs (`一`–`鿿`, `㐀`–`䶿`) are extracted; comment lines (`#`) and non-CJK characters are ignored.
